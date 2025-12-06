@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.light {
+  --primary: rgba(161, 51, 51, 1);
+  --onPrimary: #ffffff;
+  --secondary: #000000;
+  --onSecondary: #ffffff;
+  --background: #fcf0f0ff;
+  --backgroundNav: #ffffff;
+  --onBackground: #000000;
+  --surface: #f7f9fa;
+  --onSurface: #000000;
+  --error: #B00020;
+  --onError: #ffffff;
+  --accent-red-50: #ffe5e5;
+  --accent-red-100: #ffb3b3;
+  --accent-red-200: #ff8080;
+  --accent-red-300: #ff4d4d;
+  --accent-red-400: #ff1a1a;
+  --accent-red-500: #e60000;
+}
+
+.dark {
+  --primary: rgba(161, 51, 51, 1);
+  --onPrimary: #000000;
+  --secondary: #ffffff;
+  --onSecondary: #000000;
+  --background: #232323ff;
+  --backgroundNav: #1c1c1cff;
+  --onBackground: #ffffff;
+  --surface: #171717ff;
+  --onSurface: #ffffff;
+  --error: #CF6679;
+  --accent-red-50: #330000;
+  --accent-red-100: #660000;
+  --accent-red-200: #990000;
+  --accent-red-300: #CC0000;
+  --accent-red-400: #E60000;
+  --accent-red-500: #FF1A1A;
+}
+
+
+html {
+  height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background: var(--background);
-  color: var(--foreground);
+  color: var(--onSurface);
   font-family: Arial, Helvetica, sans-serif;
 }
