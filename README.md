@@ -1,0 +1,1 @@
+Jan Gasztold, Mikołaj Kalejta, Maciej Adamski
