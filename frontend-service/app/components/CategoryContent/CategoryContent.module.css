@@ -1,272 +1,153 @@
-@layer components {
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px 16px;
-  }
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
 
-  .header {
-    margin-bottom: 32px;
-  }
+.header {
+  margin-bottom: 32px;
+}
 
-  .title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--onSurface);
-    margin-bottom: 16px;
-  }
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--onSurface);
+  margin-bottom: 16px;
+}
 
-  .content {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--onSurface);
-    margin-bottom: 32px;
-  }
+.content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--onSurface);
+}
 
-  .actionsSection {
-    margin-top: 32px;
-  }
+.actionsSection {
+  margin-top: 32px;
+}
 
-  .actionsTitle {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--onSurface);
-    margin-bottom: 20px;
-  }
+.actionsTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--onSurface);
+  margin-bottom: 20px;
+}
+.actionButton {
+  width: 100%
+}
 
-  .statusList {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+.statusList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-  .statusGroup {
-    border-radius: 12px;
-    background: color-mix(in srgb, var(--surface) 50%, transparent);
-    border: 1px solid var(--accent-red-50, #ffe5e5);
-    overflow: hidden;
-    transition: all 0.2s ease;
-  }
+.statusGroup {
+  border-radius: 12px;
+  overflow: hidden;
+}
 
-  .statusButton {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-    background: #ffffff;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-  }
+.statusButton {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: var(--background) 0.2s;
+  background: #fff;
+}
 
-  .statusButton[data-variant="zapowiedziany"] {
-    background: color-mix(in srgb, var(--primary) 15%, #ffffff);
-  }
+.statusButton[data-variant="zapowiedziany"] {
+  background: color-mix(in srgb, var(--primary) 25%, #fff);
+}
+.statusButton[data-variant="konsultacje"] {
+  background: color-mix(in srgb, var(--primary) 15%, #fff);
+}
+.statusButton[data-variant="rada_ministrow"] {
+  background: color-mix(in srgb, var(--primary) 18%, #fff);
+}
+.statusButton[data-variant="sejm"],
+.statusButton[data-variant="senat"] {
+  background: color-mix(in srgb, var(--primary) 15%, #fff);
+}
+.statusButton[data-variant="podpis_prezydenta"],
+.statusButton[data-variant="uchwalony"] {
+  background: color-mix(in srgb, #32a852 15%, #fff);
+}
+.statusButton[data-variant="wstrzymany"] {
+  background: color-mix(in srgb, #d4a017 15%, #fff);
+}
+.statusButton[data-variant="anulowany"] {
+  background: color-mix(in srgb, var(--error) 15%, #fff);
+}
 
-  .statusButton[data-variant="zapowiedziany"]:hover {
-    background: color-mix(in srgb, var(--primary) 25%, #ffffff);
-  }
+.statusButton:hover {
+  background: color-mix(in srgb, var(--primary, #000) 25%, #fff);
+}
 
-  .statusButton[data-variant="przed_konsultacjami"] {
-    background: color-mix(in srgb, var(--accent-red-100, #ffb3b3) 15%, #ffffff);
-  }
+.statusGroupTitle {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--onSurface);
+}
 
-  .statusButton[data-variant="przed_konsultacjami"]:hover {
-    background: color-mix(in srgb, var(--accent-red-100, #ffb3b3) 25%, #ffffff);
-  }
+.actionsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-  .statusButton[data-variant="konsultacje"] {
-    background: color-mix(in srgb, var(--primary) 15%, #ffffff);
-  }
+.actionItem {
+  border-left: 4px solid transparent;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer !important;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-  .statusButton[data-variant="konsultacje"]:hover {
-    background: color-mix(in srgb, var(--primary) 25%, #ffffff);
-  }
+.actionItem[data-variant="zapowiedziany"] {
+  border-left-color: var(--primary);
+}
+.actionItem[data-variant="konsultacje"] {
+  border-left-color: var(--primary);
+}
+.actionItem[data-variant="rada_ministrow"] {
+  border-left-color: color-mix(in srgb, var(--primary) 70%, #000 10%);
+}
+.actionItem[data-variant="sejm"],
+.actionItem[data-variant="senat"] {
+  border-left-color: color-mix(in srgb, var(--primary) 80%, #000 5%);
+}
+.actionItem[data-variant="podpis_prezydenta"],
+.actionItem[data-variant="uchwalony"] {
+  border-left-color: #32a852;
+}
+.actionItem[data-variant="wstrzymany"] {
+  border-left-color: #d4a017;
+}
+.actionItem[data-variant="anulowany"] {
+  border-left-color: var(--error);
+}
 
-  .statusButton[data-variant="rada_ministrow"] {
-    background: color-mix(in srgb, var(--primary) 18%, #ffffff);
-  }
+.actionTitle {
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
 
-  .statusButton[data-variant="rada_ministrow"]:hover {
-    background: color-mix(in srgb, var(--primary) 28%, #ffffff);
-  }
-
-  .statusButton[data-variant="sejm"],
-  .statusButton[data-variant="senat"] {
-    background: color-mix(in srgb, var(--primary) 15%, #ffffff);
-  }
-
-  .statusButton[data-variant="sejm"]:hover,
-  .statusButton[data-variant="senat"]:hover {
-    background: color-mix(in srgb, var(--primary) 25%, #ffffff);
-  }
-
-  .statusButton[data-variant="podpis_prezydenta"],
-  .statusButton[data-variant="uchwalony"] {
-    background: color-mix(in srgb, #32a852 15%, #ffffff);
-  }
-
-  .statusButton[data-variant="podpis_prezydenta"]:hover,
-  .statusButton[data-variant="uchwalony"]:hover {
-    background: color-mix(in srgb, #32a852 25%, #ffffff);
-  }
-
-  .statusButton[data-variant="wstrzymany"] {
-    background: color-mix(in srgb, #d4a017 15%, #ffffff);
-  }
-
-  .statusButton[data-variant="wstrzymany"]:hover {
-    background: color-mix(in srgb, #d4a017 25%, #ffffff);
-  }
-
-  .statusButton[data-variant="anulowany"] {
-    background: color-mix(in srgb, var(--error) 15%, #ffffff);
-  }
-
-  .statusButton[data-variant="anulowany"]:hover {
-    background: color-mix(in srgb, var(--error) 25%, #ffffff);
-  }
-
-  .chevron {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    color: var(--onSurface);
-    opacity: 0.6;
-  }
-
-  .chevron svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .statusButton:hover .chevron {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-
-  .statusButton[data-expanded="true"] .chevron {
-    opacity: 0.8;
-  }
-
-  .statusGroupTitle {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .statusButton[data-variant="zapowiedziany"] .statusGroupTitle {
-    color: var(--primary);
-  }
-
-  .statusButton[data-variant="przed_konsultacjami"] .statusGroupTitle {
-    color: var(--accent-red-100, #ffb3b3);
-  }
-
-  .statusButton[data-variant="konsultacje"] .statusGroupTitle {
-    color: var(--primary);
-  }
-
-  .statusButton[data-variant="rada_ministrow"] .statusGroupTitle {
-    color: color-mix(in srgb, var(--primary) 70%, #000 10%);
-  }
-
-  .statusButton[data-variant="sejm"] .statusGroupTitle,
-  .statusButton[data-variant="senat"] .statusGroupTitle {
-    color: color-mix(in srgb, var(--primary) 80%, #000 5%);
-  }
-
-  .statusButton[data-variant="podpis_prezydenta"] .statusGroupTitle,
-  .statusButton[data-variant="uchwalony"] .statusGroupTitle {
-    color: #32a852;
-  }
-
-  .statusButton[data-variant="wstrzymany"] .statusGroupTitle {
-    color: #d4a017;
-  }
-
-  .statusButton[data-variant="anulowany"] .statusGroupTitle {
-    color: var(--error);
-  }
-
-  .actionsList {
-    list-style: none;
-    margin: 0;
-    padding: 16px 20px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: color-mix(in srgb, var(--background) 10%, transparent);
-  }
-
-  .actionItem {
-    padding: 12px 16px;
-    border-radius: 8px;
-    background: color-mix(in srgb, var(--background) 30%, transparent);
-    transition: all 0.2s ease;
-  }
-
-  .actionItem[data-variant="zapowiedziany"] {
-    border-left-color: var(--primary);
-    background: color-mix(in srgb, var(--primary) 8%, transparent);
-  }
-
-  .actionItem[data-variant="przed_konsultacjami"] {
-    border-left-color: var(--accent-red-100, #ffb3b3);
-    background: color-mix(in srgb, var(--accent-red-50, #ffe5e5) 30%, transparent);
-  }
-
-  .actionItem[data-variant="konsultacje"] {
-    border-left-color: var(--primary);
-    background: color-mix(in srgb, var(--primary) 12%, transparent);
-  }
-
-  .actionItem[data-variant="rada_ministrow"] {
-    border-left-color: color-mix(in srgb, var(--primary) 70%, #000 10%);
-    background: color-mix(in srgb, var(--primary) 15%, transparent);
-  }
-
-  .actionItem[data-variant="sejm"],
-  .actionItem[data-variant="senat"] {
-    border-left-color: color-mix(in srgb, var(--primary) 80%, #000 5%);
-    background: color-mix(in srgb, var(--primary) 12%, transparent);
-  }
-
-  .actionItem[data-variant="podpis_prezydenta"],
-  .actionItem[data-variant="uchwalony"] {
-    border-left-color: #32a852;
-    background: color-mix(in srgb, #32a852 12%, transparent);
-  }
-
-  .actionItem[data-variant="wstrzymany"] {
-    border-left-color: #d4a017;
-    background: color-mix(in srgb, #d4a017 12%, transparent);
-  }
-
-  .actionItem[data-variant="anulowany"] {
-    border-left-color: var(--error);
-    background: color-mix(in srgb, var(--error) 12%, transparent);
-  }
-
-  .actionItem:hover {
-    transform: translateX(4px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
-
-  .actionTitle {
-    font-weight: 700;
-    color: var(--onSurface);
-    margin: 0 0 6px 0;
-  }
-
-  .actionDescription {
-    font-size: 0.9rem;
-    color: color-mix(in srgb, var(--onSurface) 80%, transparent);
-    margin: 0;
-  }
+.actionDescription {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--onSurface) 80%, transparent);
+  margin: 0;
 }

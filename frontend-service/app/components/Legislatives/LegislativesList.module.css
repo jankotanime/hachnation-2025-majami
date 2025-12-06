@@ -84,7 +84,7 @@
 
 	.badge[data-variant="zapowiedziany"] {
 		border-color: var(--primary);
-		background: color-mix(in srgb, var(--primary) 10%, transparent);
+		background: color-mix(in srgb, var(--primary) 18%, transparent);
 	}
 
 	.badge[data-variant="przed_konsultacjami"] {

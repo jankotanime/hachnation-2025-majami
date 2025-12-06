@@ -5,12 +5,12 @@
     padding: 24px 32px;
     margin-top: auto;
     background: var(--backgroundNav);
-    box-shadow: 0 -2px 8px rgba(220, 20, 60, 0.1);
+    box-shadow: 0 -2px 8px rgba(20, 110, 220, 0.15);
     color: var(--onSurface);
     text-align: center;
     transition: all 0.3s ease;
 }
 
 .footer:hover {
-    box-shadow: 0 -4px 12px rgba(220, 20, 60, 0.15);
+    box-shadow: 0 -4px 12px rgba(20, 110, 220, 0.15);
 }
