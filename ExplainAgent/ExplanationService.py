@@ -1,36 +1,11 @@
 import logging
 import os
-import asyncio
-import encodings
-from typing import Optional, List, Literal
-from pydantic import BaseModel, Field
+from typing import Optional
+from Explain import ExplanationResponse, ExplanationRequest, ExplanationDetails
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
 load_dotenv()
-
-class ExplanationRequest(BaseModel):
-    """Request model for explanation"""
-
-    request_type: Literal["act-link", "other"] = Field(
-        description="Type of request being made",
-    )
-    confidence_score: float = Field(description="Confidence score between 0 and 1")
-    description: str = Field(description="Text to be explained")
-
-class ExplanationDetails(BaseModel):
-    """Details model for explanation"""
-
-    content: str = Field(description="Content of explanation")
-    key_points: List[str] = Field(
-        description="List of keypoints extracted from explanation"
-    )
-
-class ExplanationResponse(BaseModel):
-    """Response model for explanation"""
-
-    success: bool = Field(description="Success flag")
-    message: str = Field(description="Response message")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -104,22 +79,3 @@ async def process_explanation_request(user_input: str) -> Optional[ExplanationRe
     else:
         logger.warning("Request type not supported")
         return None
-
-# --------------------------------------------------------------
-# TESTS (async runner)
-# --------------------------------------------------------------
-
-async def main():
-    valid_input = "https://orka.sejm.gov.pl/Druki10ka.nsf/0/BFD04848ECC80979C1258D55002D7562/%24File/2037.pdf"
-    result = await process_explanation_request(valid_input)
-    if result:
-        with open("valid_response.md", "w", encoding="UTF-8") as file:
-            file.write(result.message)
-
-    invalid_input = "Jaka jest dzisiaj pogoda?"
-    result = await process_explanation_request(invalid_input)
-    if not result:
-        print("Request not recognized as an explain operation")
-
-if __name__ == "__main__":
-    asyncio.run(main())
