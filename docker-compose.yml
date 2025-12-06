@@ -1,0 +1,78 @@
+services:
+  database:
+    image: postgres:16-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: hacknation
+    networks:
+      - hacknation-2025-majami
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+
+  api:
+    container_name: api
+    restart: always
+    build:
+      context: ./hacknation
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    networks:
+      - hacknation-2025-majami
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./hacknation
+          target: /opt
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:8080/health-check"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend-service
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - hacknation-2025-majami
+    healthcheck:
+      test: ["CMD", "curl", "-I", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  nginx:
+    image: nginx:1.29.1-bookworm-perl
+    container_name: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./certs:/etc/certs
+    networks:
+      - hacknation-2025-majami
+    depends_on:
+      frontend:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+
+networks:
+  hacknation-2025-majami:
+    name: hacknation-2025-majami
+
+volumes:
+  db-volume:
