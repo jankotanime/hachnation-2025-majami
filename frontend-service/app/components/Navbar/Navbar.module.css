@@ -1,4 +1,17 @@
 .navbar {
-    padding: 12px 20px;
-    background: "white"
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: var(--primary);
+    border-bottom: 1px solid var(--onPrimary);
+    box-shadow: 0 2px 8px rgba(220, 20, 60, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navbar:hover {
+    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.15);
 }
