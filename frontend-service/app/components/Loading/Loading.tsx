@@ -1,9 +1,7 @@
+import { OrbitProgress } from "react-loading-indicators"
+
 const Loading = () => {
-    return (
-        <div>
-            Loading
-        </div>
-    )
+    return <OrbitProgress color="red" size="medium" text="" textColor="" />
 }
 
 export default Loading

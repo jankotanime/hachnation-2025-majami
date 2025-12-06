@@ -3,9 +3,6 @@ import Legislatives from "./components/Legislatives/LegislativesList";
 
 export default function Home() {
   return (
-    <div>
-      <DarkModeSwitch />
       <Legislatives />
-    </div>
   );
 }
