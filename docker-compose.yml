@@ -54,6 +54,21 @@ services:
       timeout: 5s
       retries: 10
 
+  agent:
+    container_name: agent
+    build:
+      context: ./ExplainAgent
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - hacknation-2025-majami
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:5000/health-check"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   nginx:
     image: nginx:1.29.1-bookworm-perl
     container_name: nginx
@@ -68,6 +83,8 @@ services:
       frontend:
         condition: service_healthy
       api:
+        condition: service_healthy
+      agent:
         condition: service_healthy
 
 networks:
