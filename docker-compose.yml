@@ -28,7 +28,7 @@ services:
     develop:
       watch:
         - action: sync+restart
-          path: ./spring-boot-service
+          path: ./hacknation
           target: /opt
     healthcheck:
       test: ["CMD", "curl", "http://localhost:8080/health-check"]
@@ -49,7 +49,7 @@ services:
     networks:
       - hacknation-2025-majami
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      test: ["CMD", "curl", "-I", "http://localhost:3000"]
       interval: 10s
       timeout: 5s
       retries: 10
