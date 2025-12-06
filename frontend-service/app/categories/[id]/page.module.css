@@ -1,0 +1,6 @@
+@layer components {
+  .wrapper {
+    max-width: 960px;
+    padding: 32px 16px;
+  }
+}

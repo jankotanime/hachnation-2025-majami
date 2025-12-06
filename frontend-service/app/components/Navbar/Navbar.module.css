@@ -6,16 +6,16 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 32px;
-    background: var(--primary);
-    border-bottom: 1px solid var(--onPrimary);
+    background: var(--backgroundNav);
+    box-shadow: 0 4px 12px rgba(20, 110, 220, 0.15);
     transition: all 0.3s ease;
 }
 
 .navbar:hover {
-    box-shadow: 0 4px 12px rgba(20, 110, 220, 0.15);
+    box-shadow: 0 8px 16px rgba(20, 110, 220, 0.15);
 }
 
 .brand {
     font-weight: 700;
-    color: var(--onPrimary);
+    color: var(--onSurface);
 }

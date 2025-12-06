@@ -1,5 +1,3 @@
-"use server";
-
 import Link from "next/link";
 import { Legislative } from "@/app/types/legislative";
 import { data as legislatives } from "@/app/utils/data";
@@ -24,6 +22,11 @@ import { STATUS_VARIANTS } from "@/app/constans/statusVariants";
 // }
 
 const LegislativesList = async () => {
+  const getStatusCount = (legislative: Legislative, statusVariant: string): number => {
+    if (!legislative.bills) return 0;
+    return legislative.bills.filter((bill) => bill.status === statusVariant).length;
+  };
+
   return (
     <div className={styles.wrapper}>
       {legislatives.length === 0 ? (
@@ -35,15 +38,18 @@ const LegislativesList = async () => {
               <Link href={`/categories/${item.id}`} className={styles.link}>
                 <span className={styles.title}>{item.title}</span>
                 <div className={styles.statuses}>
-                  {STATUS_VARIANTS.map((status) => (
-                    <span
-                      key={status.key}
-                      className={styles.badge}
-                      data-variant={status.variant}
-                    >
-                      {status.label} {status.count}
-                    </span>
-                  ))}
+                  {STATUS_VARIANTS.map((status) => {
+                    const count = getStatusCount(item, status.variant);
+                    return (
+                      <span
+                        key={status.key}
+                        className={styles.badge}
+                        data-variant={status.variant}
+                      >
+                        {status.label} {count}
+                      </span>
+                    );
+                  })}
                 </div>
               </Link>
             </li>

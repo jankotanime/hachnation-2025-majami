@@ -4,8 +4,7 @@
     justify-content: center;
     padding: 24px 32px;
     margin-top: auto;
-    background: var(--primary);
-    border-top: 1px solid var(--onPrimary);
+    background: var(--backgroundNav);
     box-shadow: 0 -2px 8px rgba(220, 20, 60, 0.1);
     color: var(--onSurface);
     text-align: center;

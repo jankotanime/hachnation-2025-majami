@@ -9,14 +9,20 @@ export default function DarkModeSwitch() {
 
   return (
     <Button
-      variant="contained"
       onClick={toggleDarkMode}
       className={styles.actionButton}
+      sx={{
+        all: 'unset',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer'
+      }}
     >
       {isDarkMode ? (
           <SunIcon className="w-6 h-6 text-yellow-400" />
       ) : (
-          <MoonIcon className="w-6 h-6 text-white-500" />
+          <MoonIcon className="w-6 h-6 text-slate-600" />
       )}
     </Button>
   );

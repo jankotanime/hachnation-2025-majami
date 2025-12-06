@@ -6,11 +6,12 @@
 }
 
 .light {
-  --primary: #4CB4E7;
+  --primary: rgba(161, 51, 51, 1);
   --onPrimary: #ffffff;
   --secondary: #000000;
   --onSecondary: #ffffff;
-  --background: #ffffff;
+  --background: #fcf0f0ff;
+  --backgroundNav: #ffffff;
   --onBackground: #000000;
   --surface: #f7f9fa;
   --onSurface: #000000;
@@ -25,11 +26,12 @@
 }
 
 .dark {
-  --primary: #4CB4E7;
+  --primary: rgba(161, 51, 51, 1);
   --onPrimary: #000000;
   --secondary: #ffffff;
   --onSecondary: #000000;
-  --background: #1c1c1cff;
+  --background: #232323ff;
+  --backgroundNav: #1c1c1cff;
   --onBackground: #ffffff;
   --surface: #171717ff;
   --onSurface: #ffffff;
