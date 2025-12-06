@@ -23,7 +23,7 @@ const Navbar = () => {
                 />
                 <div className="w-0.5 h-12" style={{ backgroundColor: 'var(--accent-red-200)'}}></div>
                 <div>
-                    
+                    Serwis Rzeczypospolitej Polskiej
                 </div>
             </div>
             <DarkModeSwitch />
