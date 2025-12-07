@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,10 +24,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApiLegislationManager {
   private final LegislationRepository legislationRepository;
+  @Value("${api.external.api.url}")
+  private String externalUrl;
 
-  public List<Legislation> getAllLegislationFromApi() {
+  public List<Legislation> getAllLegislationFromApi(int term, int legislationNumber) {
     try {
-      URL url = new URL("https://api.sejm.gov.pl/sejm/term10/processes");
+      URL url = new URL(externalUrl + "/sejm/term" + term + "/processes?limit=50&offset="+legislationNumber);
       HttpURLConnection con = (HttpURLConnection) url.openConnection();
       con.setRequestMethod("GET");
 
