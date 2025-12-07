@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Legislative, Bill } from '@/app/types/legislative';
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { STATUS_VARIANTS } from '@/app/constans/statusVariants';
 
 interface StatusGroup {
   key: string;
@@ -22,6 +23,11 @@ interface Props {
 export default function CategoryContent({ item, billsByStatus, categoryId, onActionClick }: Props) {
   const router = useRouter();
   const [expandedStatus, setExpandedStatus] = useState<string | null>(null);
+
+  const getStatusTheme = (statusKey: string) =>
+    STATUS_VARIANTS.find((variant) => variant.key === statusKey);
+
+  const getPanelHeight = (itemsCount: number) => Math.max(140, itemsCount * 96);
 
   const toggleStatus = (key: string) => {
     setExpandedStatus(expandedStatus === key ? null : key);
@@ -43,27 +49,45 @@ export default function CategoryContent({ item, billsByStatus, categoryId, onAct
           <h2 className="text-2xl font-bold text-onSurface mb-5">Ustawy według statusu</h2>
           <div className="flex flex-col gap-3">
             {billsByStatus.map((statusGroup) => (
-              <div key={statusGroup.key} className="rounded-xl overflow-hidden border border-gray-200">
+              <div key={statusGroup.key} className="rounded-xl overflow-hidden">
                 <button
                   onClick={() => toggleStatus(statusGroup.key)}
-                  className="w-full flex justify-between items-center p-4 bg-backgroundNav text-onSurface font-semibold cursor-pointer transition-all hover:bg-gray-100"
-                  style={{backgroundColor: 'var(--backgroundNav)'}}
+                  className="w-full flex justify-between items-center p-4 text-onSurface font-semibold cursor-pointer transition-all"
+                  style={{
+                    backgroundColor: getStatusTheme(statusGroup.key)?.bgColor || 'var(--backgroundNav)',
+                    color: getStatusTheme(statusGroup.key)?.color || 'var(--onSurface)'
+                  }}
                 >
                   <span>{statusGroup.label} ({statusGroup.items.length})</span>
-                  {expandedStatus === statusGroup.key
-                    ? <ChevronDownIcon className="w-6 h-6" />
-                    : <ChevronRightIcon className="w-6 h-6" />}
+                  <ChevronRightIcon
+                    className={`w-6 h-6 transform transition-transform duration-300 ease-in-out ${
+                      expandedStatus === statusGroup.key ? 'rotate-90' : 'rotate-0'
+                    }`}
+                  />
                 </button>
-                {expandedStatus === statusGroup.key && (
-                  <ul className="flex flex-col gap-2 p-2" style={{backgroundColor: 'var(--backgroundNav)'}}>
+                <div
+                  className="overflow-hidden transition-all duration-400 ease-out"
+                  style={{
+                    backgroundColor: 'var(--backgroundNav)',
+                    maxHeight: expandedStatus === statusGroup.key ? `${getPanelHeight(statusGroup.items.length)}px` : '0px',
+                    opacity: expandedStatus === statusGroup.key ? 1 : 0,
+                    pointerEvents: expandedStatus === statusGroup.key ? 'auto' : 'none'
+                  }}
+                >
+                  <ul className="flex flex-col gap-2 p-2">
                     {statusGroup.items.map((bill) => (
                       <li key={bill.id}>
                         <button
                           onClick={() => handleActionClick(bill)}
-                          className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-all flex flex-col gap-1 cursor-pointer"
-                          style={{backgroundColor: 'var(--background)'}}
+                          className="w-full text-left p-3 rounded-lg hover:opacity-90 transition-all flex flex-col gap-2 cursor-pointer"
+                          style={{
+                            backgroundColor: getStatusTheme(bill.status)?.bgColor || 'var(--background)',
+                            color: getStatusTheme(statusGroup.key)?.color || 'var(--onSurface)'
+                          }}
                         >
-                          <h4 className="font-bold text-onSurface">{bill.title}</h4>
+                          <div className="flex items-start justify-between gap-3">
+                            <h4 className="font-bold text-onSurface">{bill.title}</h4>
+                          </div>
                           {bill.description && (
                             <p className="text-sm text-onSurface/80">{bill.description}</p>
                           )}
@@ -71,7 +95,7 @@ export default function CategoryContent({ item, billsByStatus, categoryId, onAct
                       </li>
                     ))}
                   </ul>
-                )}
+                </div>
               </div>
             ))}
           </div>
