@@ -11,7 +11,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public enum BusinessExceptionReason implements BusinessExceptionPolicy {
-    EXAMPLE_EXCEPTION("example", HttpStatus.NOT_FOUND, null);
+    EXAMPLE_EXCEPTION("example", HttpStatus.NOT_FOUND, null),
+    ALL_LEGISLATIONS_EXCEPTION("Error while getting all legislations", HttpStatus.NOT_FOUND, null),
+    API_ERROR("Error while connecting with API", HttpStatus.NOT_FOUND, null);
 
     private final String code = name();
     private final String message;
