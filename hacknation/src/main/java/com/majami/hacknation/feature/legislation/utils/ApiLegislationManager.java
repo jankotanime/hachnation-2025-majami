@@ -65,19 +65,12 @@ public class ApiLegislationManager {
       List<Legislation> legislations = new ArrayList<>();
       for (LegislationApiDto legislation : response) {
         System.out.println(legislation);
-        AiAgentResponse aiResponse = getAiExplanationFromAgent();
-        String aiExplanation = aiResponse == null ? null : aiResponse.content();
-        List<String> aiKeyPoints = aiResponse == null ? null : aiResponse.keypoints();
         if (legislation.closureDate() != null) {
           Legislation l = new Legislation(legislation.term(), legislation.number(), legislation.title(), legislation.description(), legislation.changeDate(), legislation.passed(), legislation.closureDate());
-          l.setAiExplanation(aiExplanation);
-          l.setKeypoints(aiKeyPoints);
           legislationRepository.save(l);
           legislations.add(l);
         } else {
           Legislation l = new Legislation(legislation.term(), legislation.number(), legislation.title(), legislation.description(), legislation.changeDate(), legislation.passed());
-          l.setAiExplanation(aiExplanation);
-          l.setKeypoints(aiKeyPoints);
           legislationRepository.save(l);
           legislations.add(l);
         }
@@ -131,7 +124,9 @@ public class ApiLegislationManager {
     } catch (Exception e) {
       throw new BusinessException(BusinessExceptionReason.FETCHING_AI_EXPLANATION_ERROR);
     } finally {
-      if (stream != null) try { stream.close(); } catch (Exception ignored) { /* ignore */ }
+      if (stream != null) try {stream.close();} catch (Exception ignored) { /* ignore */ }
+    }
+  }
 
   public Legislation getSpecificLegislationFromApi(int term, int number) {
     try {
@@ -173,8 +168,11 @@ public class ApiLegislationManager {
 
       if (l.getUpdatedOnApiAt().isAfter(l.getUpdatedAt()) || l.getAiExplanation() == null || l.getAiExplanation().isEmpty()) {
         l.setUpdatedAt(LocalDateTime.now());
-        l.setAiExplanation("aaa");
-        System.out.println("BOOM");
+        AiAgentResponse aiResponse = getAiExplanationFromAgent();
+        String aiExplanation = aiResponse == null ? null : aiResponse.content();
+        List<String> aiKeyPoints = aiResponse == null ? null : aiResponse.keypoints();
+        l.setAiExplanation(aiExplanation);
+        l.setKeypoints(aiKeyPoints);
         System.out.println(legislation.stages());
         for (FetchedStageDto s : legislation.stages()) {
           Stage newStage = Stage.from(s);
