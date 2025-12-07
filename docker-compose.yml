@@ -84,8 +84,8 @@ services:
     networks:
       - hacknation-2025-majami
     depends_on:
-      frontend:
-        condition: service_healthy
+      # frontend:
+        # condition: service_healthy
       api:
         condition: service_healthy
       agent:

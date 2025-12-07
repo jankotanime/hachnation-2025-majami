@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import com.majami.hacknation.feature.legislation.model.Legislation;
 import com.majami.hacknation.feature.stage.dto.FetchedStageDto;
 
 @Entity
@@ -35,6 +37,10 @@ public class Stage {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+
+  @ManyToOne
+  @JoinColumn(name = "legislation_id")
+  private Legislation legislation;
 
   private Integer term;
 

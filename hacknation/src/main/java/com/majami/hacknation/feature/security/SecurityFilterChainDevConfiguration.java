@@ -29,6 +29,8 @@ public class SecurityFilterChainDevConfiguration {
           .permitAll()
           .requestMatchers(HttpMethod.GET, "/legislation*")
           .permitAll()
+          .requestMatchers(HttpMethod.GET, "/legislation/*")
+          .permitAll()
           .anyRequest()
           .authenticated())
       .exceptionHandling(
