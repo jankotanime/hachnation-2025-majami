@@ -15,8 +15,8 @@ public class LegislationServiceDefault implements LegislationService {
   private final ApiLegislationManager apiLegislationManager;
 
   @Override
-  public List<Legislation> getAllLegislation() {
-    List<Legislation> response = apiLegislationManager.getAllLegislationFromApi();
+  public List<Legislation> getAllLegislation(int term, int legislationNumber) {
+    List<Legislation> response = apiLegislationManager.getAllLegislationFromApi(term, legislationNumber);
 
     return response;
   }

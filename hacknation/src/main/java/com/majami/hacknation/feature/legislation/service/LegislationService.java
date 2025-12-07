@@ -5,5 +5,5 @@ import java.util.List;
 import com.majami.hacknation.feature.legislation.model.Legislation;
 
 public interface LegislationService {
-  public List<Legislation> getAllLegislation();
+  public List<Legislation> getAllLegislation(int term, int legislationNumber);
 }
