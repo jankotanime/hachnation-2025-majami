@@ -1,7 +1,7 @@
 import logging
 import os
 from typing import Optional
-from Explain import ExplanationResponse, ExplanationRequest, ExplanationDetails
+from Explain import ExplanationResponse, ExplanationRequest
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
@@ -52,17 +52,13 @@ async def handle_explanation(description: str) -> ExplanationResponse:
             },
             {"role": "user", "content": description},
         ],
-        response_format=ExplanationDetails
+        response_format=ExplanationResponse
     )
     details = completion.choices[0].message.parsed
 
     logger.info(f"Explained description: {details.model_dump_json(indent=2)}")
 
-    return ExplanationResponse(
-        success=True,
-        message=f"Keypoints: {details.key_points}\n\n"
-                f"Content: '{details.content}'"
-    )
+    return details
 
 async def process_explanation_request(user_input: str) -> Optional[ExplanationResponse]:
     """Main function implementing the routing workflow"""

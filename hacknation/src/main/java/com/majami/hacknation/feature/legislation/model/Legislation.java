@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.majami.hacknation.feature.stage.model.Stage;
@@ -28,6 +29,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "legislations")
 @NoArgsConstructor
 public class Legislation {
@@ -42,10 +44,9 @@ public class Legislation {
   private String description;
   @Column(columnDefinition = "TEXT", length = 2000)
   private String aiExplanation;
-
+  private List<String> keypoints;
   @OneToMany(mappedBy = "legislation", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Stage> stages;
-
   private LocalDateTime createdt;
   @UpdateTimestamp
   private LocalDateTime updatedAt;
