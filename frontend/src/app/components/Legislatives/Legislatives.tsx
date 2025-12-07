@@ -26,8 +26,8 @@ const LegislativesList = async () => {
         <p className="text-center py-8" style={{ color: 'var(--onSurface)' }}>Brak danych lub błąd API</p>
       ) : (
         <ul className="list-none p-0 m-0">
-          {legislatives.map((item: Legislative) => (
-            <LegislativeItem item={item} key={item.id}/>
+          {legislatives.map((item: Legislative, ind: number) => (
+            <LegislativeItem item={item} key={ind}/>
           ))}
         </ul>
       )}

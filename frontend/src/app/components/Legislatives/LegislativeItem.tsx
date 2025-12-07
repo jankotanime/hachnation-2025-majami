@@ -6,15 +6,18 @@ import { Legislative } from "@/app/types/legislative";
 
 interface Props {
   item: Legislative;
+  key: number | string;
 }
 
-export default function LegislativeItem({ item }: Props) {
+export default function LegislativeItem({ item, key }: Props) {
   const [isHovered, setIsHovered] = useState(false);
+
+  console.log(key)
 
   return (
     <li className="mb-4 rounded-xl overflow-hidden">
       <Link
-        href={`/acts/${item.id}`}
+        href={`/acts/${key}`}
         className="block p-6 transition-all no-underline"
         style={{
           backgroundColor: isHovered ? 'var(--accent-red-50)' : 'var(--surface)',

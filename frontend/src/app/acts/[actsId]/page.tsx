@@ -1,9 +1,10 @@
 import ActsList from "../components/ActsList";
 
-const ActsPage = () => {
-    return (
-        <ActsList />
-    )
+interface ActsPageProps {
+    params: Promise<{ actsId: string }>;
 }
-
-export default ActsPage
+export default async function ActsPage({ params }: ActsPageProps) {
+    const { actsId } = await params;
+    console.log(actsId)
+    return <ActsList id={actsId} />;
+};

@@ -34,3 +34,18 @@ export interface Legislative {
   content: string;
   bills?: Bill[];
 }
+
+export interface Legislation {
+  id: string;
+  sejmTerm: number;
+  apiLegislationNumber: number;
+  title: string;
+  description: string | null;
+  aiExplanation: string | null;
+  stages:  | null;
+  createdt: string;
+  updatedAt: string;
+  closureDate: string | null;
+  updatedOnApiAt: string;
+  status: StatusType;
+}
