@@ -1,5 +1,8 @@
 package com.majami.hacknation.feature.stage.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum StageType {
   VETO("Veto"),
   READING("Reading"),
@@ -37,6 +40,7 @@ public enum StageType {
     return code;
   }
 
+  @JsonCreator
   public static StageType fromCode(String code) {
     if (code == null) return null;
     for (StageType s : values()) {
@@ -46,5 +50,10 @@ public enum StageType {
       if (s.code.equalsIgnoreCase(code)) return s;
     }
     throw new IllegalArgumentException("Unknown StageType code: " + code);
+  }
+
+  @JsonValue
+  public String toJson() {
+    return code;
   }
 }

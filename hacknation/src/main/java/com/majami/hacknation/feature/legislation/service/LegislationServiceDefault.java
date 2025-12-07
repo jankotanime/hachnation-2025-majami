@@ -20,4 +20,11 @@ public class LegislationServiceDefault implements LegislationService {
 
     return response;
   }
+
+  @Override
+  public Legislation getLegislation(int term, int number) {
+    Legislation response = apiLegislationManager.getSpecificLegislationFromApi(term, number);
+
+    return response;
+  }
 }
