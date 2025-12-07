@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { STATUS_VARIANTS } from "@/app/constans/statusVariants";
 import { data } from "@/app/utils/data";
+import Eagle from "./Eagle";
 
 const ActsList = () => {
     const allBills = data.flatMap((category) =>
@@ -39,6 +40,9 @@ const ActsList = () => {
                                                 {bill.title}
                                             </h3>
                                         </div>
+                                        {/* <div className="w-36 flex justify-center items-center shrink-0">
+                                            <Eagle status={bill.status} />
+                                        </div> */}
                                         <span
                                             className="px-3 py-1 rounded-full text-xs font-semibold"
                                             style={{

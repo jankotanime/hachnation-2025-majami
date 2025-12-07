@@ -8,13 +8,22 @@ import java.util.UUID;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.majami.hacknation.feature.stage.model.Stage;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -22,6 +31,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "legislations")
+@NoArgsConstructor
 public class Legislation {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -35,7 +45,8 @@ public class Legislation {
   @Column(columnDefinition = "TEXT", length = 2000)
   private String aiExplanation;
   private List<String> keypoints;
-  // private Stage[] stages;
+  @OneToMany(mappedBy = "legislation", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Stage> stages;
   private LocalDateTime createdt;
   @UpdateTimestamp
   private LocalDateTime updatedAt;

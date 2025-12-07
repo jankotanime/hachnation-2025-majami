@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { data } from '@/app/utils/data';
 import { STATUS_VARIANTS } from '@/app/constans/statusVariants';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import ActsException from './components/ActsException';
+import BillStatusHistory from './components/BillStatusHistory';
 
 export default function BillDetailPage() {
   const params = useParams();
@@ -17,28 +19,11 @@ export default function BillDetailPage() {
   const category = data.find(cat => cat.id === categoryId);
   const bill = category?.bills?.find(b => b.id === billId);
 
-  if (!category || !bill) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--background)' }}>
-        <div className="text-center">
-          <p style={{ color: 'var(--onBackground)' }} className="text-lg mb-4">
-            Nie znaleziono ustawy
-          </p>
-          <Link
-            href="/"
-            className="inline-block px-6 py-2 rounded-lg font-semibold transition-colors"
-            style={{ backgroundColor: 'var(--primary)', color: 'var(--onPrimary)' }}
-          >
-            Wróć do strony głównej
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   const getStatusVariant = (statusKey: string) => {
     return STATUS_VARIANTS.find(s => s.key === statusKey);
   };
+
+  if (!category || !bill) return <ActsException />
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--background)' }}>
@@ -61,7 +46,6 @@ export default function BillDetailPage() {
           </div>
         </div>
       </div>
-
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="mb-8 p-6 rounded-xl" style={{ backgroundColor: 'var(--surface)' }}>
           <div className="mb-6">
@@ -72,7 +56,6 @@ export default function BillDetailPage() {
               {bill.description || 'Brak opisu'}
             </p>
           </div>
-
           <div>
             <p style={{ color: 'var(--onSurfaceVariant)' }} className="text-sm font-semibold mb-3">
               Aktualny status
@@ -120,65 +103,21 @@ export default function BillDetailPage() {
                       className="overflow-hidden transition-all duration-400 ease-out"
                       style={{
                         backgroundColor: 'var(--backgroundNav)',
-                        maxHeight: expandedStatus === 'history' ? `${(bill.statusHistory.length - 1) * 90 + 20}px` : '0px',
+                        maxHeight: expandedStatus === 'history' ? `${(bill.statusHistory.length - 1) * 180 + 20}px` : '0px',
                         opacity: expandedStatus === 'history' ? 1 : 0,
                         pointerEvents: expandedStatus === 'history' ? 'auto' : 'none'
                       }}
                     >
                       <div className="flex flex-col gap-2 p-2">
-                        {bill.statusHistory.slice(0, -1).map((entry, index) => {
-                          const statusVariant = getStatusVariant(entry.status);
-                          const date = new Date(entry.date);
-                          const formattedDate = date.toLocaleDateString('pl-PL', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          });
-                          const isExpanded = expandedHistoryItem === index;
-
-                          return (
-                            <button
-                              key={index}
-                              onClick={() => setExpandedHistoryItem(isExpanded ? null : index)}
-                              className="text-left rounded-lg border transition-all duration-500 ease-out hover:shadow-md overflow-hidden"
-                              style={{
-                                backgroundColor: statusVariant?.bgColor,
-                                borderColor: statusVariant?.color,
-                                borderWidth: '1px',
-                                minHeight: isExpanded ? '130px' : '20px',
-                              }}
-                            >
-                              <div className="p-3">
-                                <div className="flex justify-between items-start">
-                                  <div>
-                                    <p
-                                      className="font-semibold text-sm"
-                                      style={{ color: statusVariant?.color }}
-                                    >
-                                      {statusVariant?.label}
-                                    </p>
-                                    <p style={{ color: 'var(--onSurfaceVariant)' }} className="text-xs mt-1">
-                                      {formattedDate}
-                                    </p>
-                                  </div>
-                                  <ChevronRightIcon
-                                    className={`w-4 h-4 transition-transform duration-300 flex-shrink-0 ml-2 mt-1 ${
-                                      isExpanded ? 'rotate-90' : 'rotate-0'
-                                    }`}
-                                    style={{ color: statusVariant?.color }}
-                                  />
-                                </div>
-                                {isExpanded && (
-                                  <div className="mt-3 pt-3 border-t" style={{ borderColor: statusVariant?.color }}>
-                                    <p style={{ color: 'var(--onSurface)' }} className="text-sm leading-relaxed">
-                                      Status w trakcie realizacji. Ustawa przechodzi przez kolejne etapy legislacyjne zgodnie z procedurą sejmu.
-                                    </p>
-                                  </div>
-                                )}
-                              </div>
-                            </button>
-                          );
-                        })}
+                        {bill.statusHistory.slice(0, -1).map((entry, index) => (
+                          <BillStatusHistory
+                            key={index}
+                            entry={entry}
+                            index={index}
+                            expandedHistoryItem={expandedHistoryItem}
+                            setExpandedHistoryItem={setExpandedHistoryItem}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>
