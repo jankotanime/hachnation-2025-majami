@@ -4,7 +4,7 @@ WORKDIR app/
 
 COPY . .
 
-RUN pip install -r requirements.txt
+RUN pip install 'Flask[async]' && pip install -r requirements.txt
 
 EXPOSE 5000
 

@@ -27,6 +27,7 @@ services:
       - hacknation-2025-majami
     environment:
       - API_EXTERNAL_API_URL=${API_EXTERNAL_API_URL}
+      - AI_AGENT_URL=${AI_AGENT_URL}
     develop:
       watch:
         - action: sync+restart

@@ -2,8 +2,10 @@ package com.majami.hacknation.feature.legislation.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
@@ -18,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "legislations")
 public class Legislation {
   @Id
@@ -31,6 +34,7 @@ public class Legislation {
   private String description;
   @Column(columnDefinition = "TEXT", length = 2000)
   private String aiExplanation;
+  private List<String> keypoints;
   // private Stage[] stages;
   private LocalDateTime createdt;
   @UpdateTimestamp
