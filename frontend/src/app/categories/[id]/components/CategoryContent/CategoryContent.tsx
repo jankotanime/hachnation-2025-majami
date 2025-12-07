@@ -60,8 +60,8 @@ export default function CategoryContent({ item, billsByStatus, categoryId, onAct
                       <li key={bill.id}>
                         <button
                           onClick={() => handleActionClick(bill)}
-                          className="w-full text-left p-3 rounded-lg border-l-4 border-primary bg-backgroundNav hover:bg-gray-50 transition-all flex flex-col gap-1"
-                          style={{backgroundColor: 'var(--backgroundNav)'}}
+                          className="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-all flex flex-col gap-1 cursor-pointer"
+                          style={{backgroundColor: 'var(--background)'}}
                         >
                           <h4 className="font-bold text-onSurface">{bill.title}</h4>
                           {bill.description && (

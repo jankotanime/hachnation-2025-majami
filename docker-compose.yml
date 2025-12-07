@@ -31,10 +31,10 @@ services:
           path: ./hacknation
           target: /opt
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/health-check || exit 1"]
+      test: ["CMD", "curl", "http://localhost:8080/health-check"]
       interval: 10s
-      timeout: 10s
-      retries: 20
+      timeout: 5s
+      retries: 10
 
   frontend:
     container_name: frontend
@@ -44,15 +44,30 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - api
+      api:
+        condition: service_healthy
     networks:
       - hacknation-2025-majami
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      test: ["CMD", "curl", "-I", "http://localhost:3000"]
       interval: 10s
-      timeout: 10s
-      retries: 20
-    restart: always
+      timeout: 5s
+      retries: 10
+
+  agent:
+    container_name: agent
+    build:
+      context: ./ExplainAgent
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - hacknation-2025-majami
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:5000/health-check"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   nginx:
     image: nginx:1.29.1-bookworm-perl
@@ -65,8 +80,12 @@ services:
     networks:
       - hacknation-2025-majami
     depends_on:
-      - frontend
-      - api
+      frontend:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+      agent:
+        condition: service_healthy
 
 networks:
   hacknation-2025-majami:
