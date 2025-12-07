@@ -27,6 +27,8 @@ public class SecurityFilterChainDevConfiguration {
       auth ->
         auth.requestMatchers(HttpMethod.GET, "/health-check")
           .permitAll()
+          .requestMatchers(HttpMethod.GET, "/legislation")
+          .permitAll()
           .anyRequest()
           .authenticated())
       .exceptionHandling(
