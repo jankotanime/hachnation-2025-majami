@@ -120,7 +120,7 @@ export default function BillDetailPage() {
                       className="overflow-hidden transition-all duration-400 ease-out"
                       style={{
                         backgroundColor: 'var(--backgroundNav)',
-                        maxHeight: expandedStatus === 'history' ? `${(bill.statusHistory.length - 1) * 90 + 20}px` : '0px',
+                        maxHeight: expandedStatus === 'history' ? `${(bill.statusHistory.length - 1) * 180 + 20}px` : '0px',
                         opacity: expandedStatus === 'history' ? 1 : 0,
                         pointerEvents: expandedStatus === 'history' ? 'auto' : 'none'
                       }}
